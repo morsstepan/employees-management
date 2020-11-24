@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Employees</title>
+</head>
+<body>
+
+<div class="container">
+    <div class="col-md-12">
+        <div class="box">
+            <div class="col-md-12" th:if="${status != null}">
+                <p class="alert " th:classappend="${status=='error' ? 'alert-danger' : 'alert-success'}" th:text="${message}"></p>
+            </div>
+            <form class="form-horizontal" action="/create-employee" name="" method="post">
+                <div class="form-group row">
+                    <label class="control-label col-md-3">Employee Name</label>
+                    <div class="col-md-5">
+                        <input name="name" value="" type="text" class="form-contol input" required="required"/>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="control-label col-md-3">Employee surname</label>
+                    <div class="col-md-5">
+                        <input name="surname" value="" type="text" class="form-contol input" required="required"/>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="control-label col-md-3">Employee salary</label>
+                    <div class="col-md-5">
+                        <input name="salary" value="" type="text" class="form-contol input" required="required"/>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="control-label col-md-3">Employee position</label>
+                    <div class="col-md-5">
+                        <input name="position" value="" type="text" class="form-contol input" required="required"/>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="control-label col-md-3">Employee experience</label>
+                    <div class="col-md-5">
+                        <input name="experience" value="" type="text" class="form-contol input" required="required"/>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="control-label col-md-3">Department</label>
+                    <div class="col-md-5">
+                        <select name="department.departmentId" class="form-contol select" required="required">
+                            <option value="">Select</option>
+                            <option th:each="department : ${departments}" th:value="${department.departmentId}">
+                                <span th:text="${department.departmentName}"></span>
+                            </option>
+                        </select>
+                    </div>
+                </div>
+<!--                <div class="form-group row">-->
+<!--                    <label class="control-label col-md-3">Gender</label>-->
+<!--                    <div class="col-md-5">-->
+<!--                        <input name="gender" type="radio" value="male" checked="checked"/> Male-->
+<!--                        <input name="gender" type="radio" value="female"/> Female-->
+<!--                    </div>-->
+<!--                </div>-->
+
+                <div class="form-group row">
+                    <label class="control-label col-md-3">Submit</label>
+                    <div class="col-md-5">
+                        <input type="submit" value="Add" class="btn btn-primary" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!--<div class="row">-->
+<!--    <footer th:include="fragments/footer::footer" th:remove="tag"/></footer>-->
+<!--</div>-->
+</body>
+</html>

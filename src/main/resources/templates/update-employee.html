@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<meta charset="UTF-8">
+<title>Create user</title>
+</head>
+<body>
+<form action="#" th:action="@{/update-employee}" th:object="${employee}" method="post">
+    <label for="id">ID</label>
+    <input readonly type="number" th:field="*{id}" id="id" placeholder="ID">
+    <br/>
+    <label for="name">First name</label>
+    <input type="text" th:field="*{name}" id="name" placeholder="First Name">
+    <br/>
+    <label for="surname">Last name</label>
+    <input type="text" th:field="*{surname}" id="surname" placeholder="Last Name">
+    <br/>
+    <label for="position">Last name</label>
+    <input type="text" th:field="*{position}" id="position" placeholder="Position">
+    <br/>
+    <label for="salary">Last name</label>
+    <input type="text" th:field="*{salary}" id="salary" placeholder="Salary">
+    <br/>
+    <label for="experience">Last name</label>
+    <input type="text" th:field="*{experience}" id="experience" placeholder="Experience">
+    <br/>
+    <label class="control-label col-md-3">Department</label>
+    <select name="department.departmentId" class="form-contol select" required="required">
+        <option value="">Select</option>
+        <option th:each="department : ${departments}" th:value="${department.departmentId}">
+            <span th:text="${department.departmentName}"></span>
+        </option>
+    </select>
+
+    <input type="submit" value="Update User">
+</form>
+</body>
+</html>
