@@ -115,13 +115,6 @@ public class EmployeeController {
                     }
                 }
                 if (msg.length() == 0) {
-                    Employee oldModel = employeeService.findEmployeeById(employee.getId());
-//                    if (!oldModel.getRoll().equalsIgnoreCase(student.getRoll())) {
-//                        if (studentService.findByRoll(student.getRoll()) != null) {
-//                            redirectAttr.addFlashAttribute("message", student.getRoll() + " Roll already exist");
-//                            return "redirect:/students/edit/" + student.getStudentId();
-//                        }
-//                    }
                     employeeService.saveEmployee(employee);
                     redirectAttr.addFlashAttribute("status", "success");
                     redirectAttr.addFlashAttribute("message", "Employee Info Successfully updated");
