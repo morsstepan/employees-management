@@ -25,7 +25,7 @@ public class EmployeeController {
         this.departmentService = departmentService;
     }
 
-    @GetMapping("/home")
+    @GetMapping("/")
     public String greeting(Model model){
         List<Employee> employees = employeeService.findAll();
         model.addAttribute("employees", employees);
@@ -39,7 +39,7 @@ public class EmployeeController {
         return "employee-list";
     }
 
-    @GetMapping(value = { "/create-employee", "/" })
+    @GetMapping("/create-employee")
     public String createEmployee(Model model) {
         model.addAttribute("pageTitle", "Employees | Add");
         model.addAttribute("departments", departmentService.findAll());
