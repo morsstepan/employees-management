@@ -16,7 +16,8 @@
                 <th>First name</th>
                 <th>Last name</th>
                 <th>Position</th>
-                <th>Salary</th>
+                <th>Salary amount</th>
+                <th>Salary currency</th>
                 <th>Experience</th>
                 <th>Department</th>
             </tr>
@@ -27,9 +28,10 @@
                 <td th:text="${employee.name}"></td>
                 <td th:text="${employee.surname}"></td>
                 <td th:text="${employee.position}"></td>
-                <td th:text="${employee.salary}"></td>
+                <td th:text="${employee.salaryAmount}"></td>
+                <td th:text="${employee.salaryCurrency}"></td>
                 <td th:text="${employee.experience}"></td>
-                <td th:text="${employee.department}"></td>
+                <td th:text="${employee.department.departmentName}"></td>
                 <td><a th:href="@{update-employee/{id}(id=${employee.id})}">Edit</a></td>
                 <td><a th:href="@{delete-employee/{id}(id=${employee.id})}">Delete</a></td>
             </tr>

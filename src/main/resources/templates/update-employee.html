@@ -14,14 +14,22 @@
     <label for="surname">Last name</label>
     <input type="text" th:field="*{surname}" id="surname" placeholder="Last Name">
     <br/>
-    <label for="position">Last name</label>
+    <label for="position">Position</label>
     <input type="text" th:field="*{position}" id="position" placeholder="Position">
     <br/>
-    <label for="salary">Last name</label>
-    <input type="text" th:field="*{salary}" id="salary" placeholder="Salary">
+    <label for="salaryAmount">Salary amount</label>
+    <input type="number" min="1" th:field="*{salaryAmount}" id="salaryAmount" placeholder="Salary Amount">
     <br/>
-    <label for="experience">Last name</label>
-    <input type="text" th:field="*{experience}" id="experience" placeholder="Experience">
+    <option value="">Select currency</option>
+    <select th:field="*{salaryCurrency}">
+        <option th:value="'EUR'" th:text="EUR"></option>
+        <option th:value="'USD'" th:text="USD"></option>
+        <option th:value="'RUB'" th:text="RUB"></option>
+        <option th:value="'GBP'" th:text="GBP"></option>
+    </select>
+    <br/>
+    <label for="experience">Experience</label>
+    <input type="number" min="0" th:field="*{experience}" id="experience" placeholder="Experience">
     <br/>
     <label class="control-label col-md-3">Department</label>
     <select name="department.departmentId" class="form-contol select" required="required">
@@ -30,7 +38,7 @@
             <span th:text="${department.departmentName}"></span>
         </option>
     </select>
-
+    <br/>
     <input type="submit" value="Update User">
 </form>
 </body>

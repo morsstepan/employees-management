@@ -27,12 +27,17 @@
                     </div>
                 </div>
 
-                <div class="form-group row">
-                    <label class="control-label col-md-3">Employee salary</label>
-                    <div class="col-md-5">
-                        <input name="salary" value="" type="text" class="form-contol input" required="required"/>
-                    </div>
-                </div>
+                <label for="salaryAmount">Salary amount</label>
+                <input name="salaryAmount" type="number" min="1" id="salaryAmount" placeholder="Salary Amount">
+                <br/>
+                <option value="">Select currency</option>
+                <select name="salaryCurrency">
+                    <option th:value="'EUR'" th:text="EUR"></option>
+                    <option th:value="'USD'" th:text="USD"></option>
+                    <option th:value="'RUB'" th:text="RUB"></option>
+                    <option th:value="'GBP'" th:text="GBP"></option>
+                </select>
+                <br/>
 
                 <div class="form-group row">
                     <label class="control-label col-md-3">Employee position</label>
@@ -44,7 +49,7 @@
                 <div class="form-group row">
                     <label class="control-label col-md-3">Employee experience</label>
                     <div class="col-md-5">
-                        <input name="experience" value="" type="text" class="form-contol input" required="required"/>
+                        <input name="experience" value="" type="number" min="0" class="form-contol input" required="required"/>
                     </div>
                 </div>
 

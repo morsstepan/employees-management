@@ -21,8 +21,11 @@ public class Employee {
     @Column(name = "employee_position")
     private String position;
     @NotNull
-    @Column(name = "employee_salary")
-    private BigDecimal salary;
+    @Column(name = "employee_salary_amount")
+    private BigDecimal salaryAmount;
+    @NotNull
+    @Column(name = "employee_salary_currency")
+    private String salaryCurrency;
     @NotNull
     @Column(name = "employee_experience")
     private Double experience;
@@ -62,12 +65,20 @@ public class Employee {
         this.position = position;
     }
 
-    public BigDecimal getSalary() {
-        return salary;
+    public BigDecimal getSalaryAmount() {
+        return salaryAmount;
     }
 
-    public void setSalary(BigDecimal salary) {
-        this.salary = salary;
+    public void setSalaryAmount(BigDecimal salaryAmount) {
+        this.salaryAmount = salaryAmount;
+    }
+
+    public String getSalaryCurrency() {
+        return salaryCurrency;
+    }
+
+    public void setSalaryCurrency(String salaryCurrency) {
+        this.salaryCurrency = salaryCurrency;
     }
 
     public Double getExperience() {
