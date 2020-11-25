@@ -3,6 +3,15 @@ package om.github.morsstepan.ysu.moderntechnologies.employees.employeesmanagemen
 import om.github.morsstepan.ysu.moderntechnologies.employees.employeesmanagement.model.Employee;
 import om.github.morsstepan.ysu.moderntechnologies.employees.employeesmanagement.service.DepartmentService;
 import om.github.morsstepan.ysu.moderntechnologies.employees.employeesmanagement.service.EmployeeService;
+import org.apache.http.Header;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpHeaders;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +21,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -37,6 +50,58 @@ public class EmployeeController {
         List<Employee> employees = employeeService.findAll();
         model.addAttribute("employees", employees);
         return "employee-list";
+    }
+
+    @GetMapping("/sort-employees-by-cur")
+    public String sortEmployeesByCurrency(Model model) {
+        List<Employee> employees = employeeService.findAll();
+
+        employees.forEach(employee -> {
+            doGet(employee);
+            employeeService.saveEmployee(employee);
+        });
+//        employees.sort();
+        model.addAttribute("employees", employees);
+        return "employee-list";
+    }
+
+    private Employee doGet(Employee employee) {
+        final CloseableHttpClient httpClient = HttpClients.createDefault();
+
+        HttpGet request = new HttpGet("" +
+                "http://localhost:8100/currency-converter-feign/from/" + employee.getSalaryCurrency() + "/to/RUB/quantity/" +
+                employee.getSalaryAmount());
+
+        // add request headers
+//        request.addHeader("custom-key", "mkyong");
+//        request.addHeader(HttpHeaders.USER_AGENT, "Googlebot");
+
+        try (CloseableHttpResponse response = httpClient.execute(request)) {
+
+            // Get HttpResponse Status
+            System.out.println(response.getStatusLine().toString());
+
+            HttpEntity entity = response.getEntity();
+            Header headers = entity.getContentType();
+            System.out.println(headers);
+
+            if (entity != null) {
+                // return it as a String
+                String result = EntityUtils.toString(entity);
+                List<String> items = Arrays.asList(result.split("\""));
+                employee.setSalaryAmount(
+                        new BigDecimal(items.get(16).substring(1, items.get(16).length() - 1))
+                );
+                employee.setSalaryCurrency(items.get(9));
+                System.out.println(result);
+            }
+
+        } catch (ClientProtocolException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return employee;
     }
 
     @GetMapping("/create-employee")
